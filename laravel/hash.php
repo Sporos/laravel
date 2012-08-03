@@ -17,7 +17,7 @@ class Hash {
 	 * @param  int     $rounds
 	 * @return string
 	 */
-	public static function make($value, $rounds = 8)
+	public static function make($value, $rounds = 16)
 	{
 		$work = str_pad($rounds, 2, '0', STR_PAD_LEFT);
 
