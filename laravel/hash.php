@@ -28,6 +28,10 @@ class Hash {
 		{
 			$salt = openssl_random_pseudo_bytes(16);
 		}
+		else if (function_exists('mcrypt_create_iv'))
+		{
+			$salt = mcrypt_create_iv(16);
+		}
 		else
 		{
 			$salt = Str::random(40);
