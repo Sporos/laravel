@@ -148,7 +148,7 @@ abstract class Driver {
 	 */
 	protected function remember($token)
 	{
-		$token = Crypter::encrypt($token.'|'.Str::random(40));
+		$token = Crypter::encrypt_hmac($token.'|'.Str::random(40));
 
 		$this->cookie($this->recaller(), $token, Cookie::forever);
 	}
@@ -167,7 +167,7 @@ abstract class Driver {
 		// and return the first segment, which is the user's ID token.
 		if ( ! is_null($cookie))
 		{
-			return head(explode('|', Crypter::decrypt($cookie)));
+			return head(explode('|', Crypter::decrypt_hmac($cookie)));
 		}
 	}
 
@@ -198,7 +198,7 @@ abstract class Driver {
 	 */
 	protected function token()
 	{
-		return $this->name().'_login';
+		return Str::lower(Config::get('application.name')).'_login';
 	}
 
 	/**
@@ -208,7 +208,7 @@ abstract class Driver {
 	 */
 	protected function recaller()
 	{
-		return $this->name().'_remember';
+		return Str::lower(Config::get('application.name')).'_remember';
 	}
 
 	/**
