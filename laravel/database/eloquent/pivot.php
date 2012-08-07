@@ -14,7 +14,7 @@ class Pivot extends Model {
 	 *
 	 * @var bool
 	 */
-	public static $timestamps = true;
+	public static $timestamps = false;
 
 	/**
 	 * Create a new pivot table instance.
