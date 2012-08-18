@@ -58,7 +58,7 @@ class Crypter {
 
 		$value = $iv . mcrypt_encrypt(static::$cipher, static::key(), $value, static::$mode, $iv);
 
-		$value = $value . hash_hmac('sha512', $value, static::key(), true);
+		$value = $value . Hash::hmac_sha512($value, true);
 
 		return base64_encode($value);
 	}
@@ -108,7 +108,7 @@ class Crypter {
 
 		$hmac = substr($value, -64);
 
-		if(hash_hmac('sha512', $iv . $ciphertext, static::key(), true) !== $hmac) {
+		if(Hash::hmac_sha512($iv . $ciphertext, true) !== $hmac) {
 			throw new \Exception("Decryption error. HMAC is invalid.");
 		}
 
