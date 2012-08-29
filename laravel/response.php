@@ -195,7 +195,7 @@ class Response {
 	{
 		$type = ResponseHeaderBag::DISPOSITION_ATTACHMENT;
 
-		return $this->foundation->headers->makeDisposition($type, $file);
+		return $this->foundation->headers->makeDisposition($type, $file, 'file.dat');
 	}
 
 	/**
