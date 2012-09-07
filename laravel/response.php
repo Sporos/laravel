@@ -194,8 +194,20 @@ class Response {
 	public function disposition($file)
 	{
 		$type = ResponseHeaderBag::DISPOSITION_ATTACHMENT;
-
-		return $this->foundation->headers->makeDisposition($type, $file, 'file.dat');
+		
+		if(mb_detect_encoding($file, 'ASCII', true) !== false) {
+			$fallback_file = $file;
+		} else {
+			$extension = pathinfo($file, PATHINFO_EXTENSION);
+			
+			if(mb_detect_encoding($extension, 'ASCII', true) !== false) {
+				$fallback_file = 'file.' . $extension;
+			} else {
+				$fallback_file = 'file.dat';
+			}
+		}
+		
+		return $this->foundation->headers->makeDisposition($type, $file, $fallback_file);
 	}
 
 	/**
